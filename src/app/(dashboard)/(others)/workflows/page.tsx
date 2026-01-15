@@ -7,10 +7,10 @@ import {
   WorkflowsError,
   WorkflowsList,
   WorkflowsLoading,
-} from "@/workflows/components/workflow";
-import { prefetchWorkflows } from "@/workflows/server/prefetch";
+} from "@/features/workflows/components/workflow";
+import { prefetchWorkflows } from "@/features/workflows/server/prefetch";
 import type { SearchParams } from "nuqs";
-import { workflowParamsLoader } from "@/workflows/server/params-loader";
+import { workflowParamsLoader } from "@/features/workflows/server/params-loader";
 type Props = {
   searchParams: Promise<SearchParams>;
 };
