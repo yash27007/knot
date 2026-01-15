@@ -14,7 +14,9 @@ import { useWorkflowParams } from "./use-workflow-params";
 export const useSuspenseWorkflows = () => {
   const trpc = useTRPC();
   const [params] = useWorkflowParams();
-  return useSuspenseQuery(trpc.workflows.getAllWorkflows.queryOptions(params));
+  return useSuspenseQuery(
+    trpc.workflows.getAllWorkflows.queryOptions(params),
+  );
 };
 
 /**
@@ -23,7 +25,9 @@ export const useSuspenseWorkflows = () => {
 
 export const useSuspenseWorkflow = (id: string) => {
   const trpc = useTRPC();
-  return useSuspenseQuery(trpc.workflows.getWorkflowbyId.queryOptions({ id }));
+  return useSuspenseQuery(
+    trpc.workflows.getWorkflowbyId.queryOptions({ id }),
+  );
 };
 
 /**
@@ -39,13 +43,13 @@ export const useCreateWorkflow = () => {
       onSuccess: (data) => {
         toast.success(`Workflow ${data.name} created!`);
         queryClient.invalidateQueries(
-          trpc.workflows.getAllWorkflows.queryOptions({})
+          trpc.workflows.getAllWorkflows.queryOptions({}),
         );
       },
       onError: (error) => {
         toast.error(`Failed to create workflow: ${error.message}`);
       },
-    })
+    }),
   );
 };
 /**
@@ -61,16 +65,18 @@ export const useUpdateWorkflowName = () => {
       onSuccess: (data) => {
         toast.success(`Workflow ${data.name} updated!`);
         queryClient.invalidateQueries(
-          trpc.workflows.getAllWorkflows.queryOptions({})
+          trpc.workflows.getAllWorkflows.queryOptions({}),
         );
         queryClient.invalidateQueries(
-          trpc.workflows.getWorkflowbyId.queryOptions({id:data.id})
-        )
+          trpc.workflows.getWorkflowbyId.queryOptions({
+            id: data.id,
+          }),
+        );
       },
       onError: (error) => {
         toast.error(`Failed to udpate workflow: ${error.message}`);
       },
-    })
+    }),
   );
 };
 
@@ -86,12 +92,12 @@ export const useRemoveWorkflow = () => {
       onSuccess: (data) => {
         toast.success(`Workflow ${data.name} removed!!`);
         queryClient.invalidateQueries(
-          trpc.workflows.getAllWorkflows.queryOptions({})
+          trpc.workflows.getAllWorkflows.queryOptions({}),
         );
         queryClient.invalidateQueries(
-          trpc.workflows.getWorkflowbyId.queryFilter({ id: data.id })
+          trpc.workflows.getWorkflowbyId.queryFilter({ id: data.id }),
         );
       },
-    })
+    }),
   );
 };

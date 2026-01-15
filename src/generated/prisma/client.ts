@@ -9,10 +9,9 @@
  * 🟢 You can import this file directly.
  */
 
-import * as path from "node:path";
 import * as process from "node:process";
+import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-
 globalThis["__dirname"] = path.dirname(
   fileURLToPath(import.meta.url),
 );
@@ -72,3 +71,13 @@ export type Verification = Prisma.VerificationModel;
  *
  */
 export type Workflow = Prisma.WorkflowModel;
+/**
+ * Model Node
+ *
+ */
+export type Node = Prisma.NodeModel;
+/**
+ * Model Connection
+ *
+ */
+export type Connection = Prisma.ConnectionModel;
