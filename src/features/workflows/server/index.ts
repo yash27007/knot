@@ -14,7 +14,7 @@ export const workflowsRouter = createTRPCRouter({
   execute: protectedProcedure
   .input(z.object({id:z.string()}))
   .mutation(async({ctx,input})=>{
-    const workflow = ctx.prisma.workflow.findFirstOrThrow({
+    const workflow = await ctx.prisma.workflow.findFirstOrThrow({
       where:{
         id:input.id,
         userId:ctx.auth.user.id

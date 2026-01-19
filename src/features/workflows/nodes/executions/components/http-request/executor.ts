@@ -20,10 +20,20 @@ export const HttpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
     throw new NonRetriableError("HTTP Request node: No endpoint configured");
   }
 
-  const response = await step.run("http-request",async ()=>{
-    const method = data.method || "GET"
-    const endpoint = data.endpoint!
+  let endpointURL : URL;
+  try{
+    endpointURL = new URL(data.endpoint);
 
+  }catch{
+    throw new NonRetriableError("HTTP Request Node: Invalid URL endpoint")
+  }
+  if(!["http:","https:"].includes(endpointURL.protocol)){
+    throw new NonRetriableError("HTTP Request Node: Unsupported Protocol")
+  }
+
+  const response = await step.run(`http-request-${nodeId}`,async ()=>{
+    const method = data.method || "GET"
+    const endpoint = endpointURL.toString()
     const options: KyOps = { method}
     if(["POST","PUT","PATCH"].includes(method)){
         options.body = data.body
